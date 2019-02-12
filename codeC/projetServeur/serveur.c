@@ -50,9 +50,10 @@ int menu()
     return 1;
 }
 
-/*int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
+int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
 {
-
+    char *ptr_i;
+    ptr_i=malloc(tailleFichier);
     FILE* fichier;
 
     fichier=fopen(nomFichier,"wb");
@@ -63,9 +64,11 @@ int menu()
     }
     else { printf("le fichier a ete cree\n"); }
 
-[incomplet]
+    ReceptionBinaire(ptr_i,tailleFichier);
+    fwrite(ptr_i,tailleFichier,1,fichier);
+
     fclose(fichier);
-}*/
+}
 
 int Recherche(char *fichier, char *mot)
 {
@@ -102,9 +105,9 @@ int Recherche(char *fichier, char *mot)
 }
 
 
-int Decomposition(char *requete, char *ID, char *CMD)
+int Decomposition(char *requete, char *ID, char *CMD,char *nomFichier)
 {
-    sscanf(requete,"%s %s", ID, CMD);
+    sscanf(requete,"%s %s %s", ID, CMD, nomFichier);
 }
 
 int CommandeS(char *requete)
@@ -114,9 +117,13 @@ int CommandeS(char *requete)
     if(strncmp(requete,"upl",3)==0)
     {
         Emission("vous avez choisi d'upload, entrez un fichier\n");
-
+        return 1;
     }
-return 1;
+    else
+    {
+    return 0;
+    }
+
 }
 
 int authentificationS(char *requete)

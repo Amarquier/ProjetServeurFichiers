@@ -1,6 +1,8 @@
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 
+int Upload(char *nomFichier);
+
 /* Initialisation.
  * Connexion au serveur sur la machine donnee.
  * Utilisez localhost pour un fonctionnement local.

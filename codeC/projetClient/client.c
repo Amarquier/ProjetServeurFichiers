@@ -27,7 +27,24 @@ int socketClient;
 char tamponClient[LONGUEUR_TAMPON];
 int debutTampon;
 int finTampon;
-/*
+
+unsigned long longueur_fichier(char *nomFichier)
+{
+    unsigned long taille=0;
+    FILE* f;
+    f=fopen(nomFichier,"r"); //on ouvre le fichier en lecture seule
+    if(f == NULL){
+        printf("Erreur ouverture fichier\n");
+        return -1;
+    }
+    fseek(f,0,SEEK_END); //on pose le curseur a la fin du fichier
+    taille=ftell(f); //on calcule la taille du premier caractere au dernier, puis on l'affecte a taille
+    fclose(f);
+    return taille;
+}
+
+
+
 int Upload(char *nomFichier)
 {
 
@@ -51,8 +68,9 @@ int Upload(char *nomFichier)
 
 
     fclose(fichier);
+    return 1;
 }
-*/
+
 int CommandeC(char *requete)
 {
 /*on envoie la commande*/

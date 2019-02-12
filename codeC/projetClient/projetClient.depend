@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1549977327 source:/home/projetc/Documents/codeC/projetClient/client.c
+1549983837 source:/home/projetc/Documents/codeC/projetClient/client.c
 	<stdio.h>
 	<stdlib.h>
 	<unistd.h>
@@ -14,9 +14,9 @@
 	<errno.h>
 	"client.h"
 
-1547364890 /home/projetc/Documents/codeC/projetClient/client.h
+1549984036 /home/projetc/Documents/codeC/projetClient/client.h
 
-1549977615 source:/home/projetc/Documents/codeC/projetClient/mainClient.c
+1549983895 source:/home/projetc/Documents/codeC/projetClient/mainClient.c
 	<stdio.h>
 	<stdlib.h>
 	"client.h"

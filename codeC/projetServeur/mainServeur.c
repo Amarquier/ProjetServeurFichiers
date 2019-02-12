@@ -6,6 +6,7 @@ int main() {
 	char *message = NULL;
 	char *ID;
 	char *CMD;
+	char *nomFichier;
 
 	Initialisation();
 
@@ -22,10 +23,16 @@ int main() {
 			{
                 ID=malloc(9);
                 CMD=malloc(3);
-				Decomposition(message,ID,CMD);
+				Decomposition(message,ID,CMD,nomFichier);
 
-				authentificationS(ID);
-				CommandeS(CMD);
+				if(authentificationS(ID)==1)
+				{
+                    if(CommandeS(CMD)==1)
+                    {
+
+                        //UploadS(nomFichier);
+                    }
+				}
 				//free(message);
 
 				//CommandeS(message);

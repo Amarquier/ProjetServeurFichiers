@@ -12,8 +12,7 @@ int main() {
 		return 1;
 	}
 
-/*****************phase d'authentification au serveur****************/
-
+/****************************************************************/
 	printf("entrez \n");
 	EnvoiC(requete);
 	free(requete);
@@ -29,10 +28,6 @@ int main() {
 
 
 
-/*****************phase de commande****************/
-
-
-
 	message = Reception();
 	if(message != NULL) {
 		printf("J'ai recu: %s\n", message);
@@ -42,7 +37,6 @@ int main() {
 		return 1;
 	}
 
-/*************************************************/
 		message = Reception();
 	if(message != NULL) {
 		printf("J'ai recu: %s\n", message);
