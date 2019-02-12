@@ -3,7 +3,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1549983821 source:/home/projetc/Documents/codeC/projetServeur/serveur.c
+1550008691 source:/home/projetc/Documents/codeC/projetServeur/serveur.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -22,8 +22,9 @@
 
 1549982880 /home/projetc/Documents/codeC/projetServeur/serveur.h
 
-1549989323 source:/home/projetc/Documents/codeC/projetServeur/mainServeur.c
+1550008122 source:/home/projetc/Documents/codeC/projetServeur/mainServeur.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"serveur.h"
 

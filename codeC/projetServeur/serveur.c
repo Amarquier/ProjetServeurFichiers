@@ -50,6 +50,30 @@ int menu()
     return 1;
 }
 
+int Download(char *nomFichier, unsigned long taille)
+{
+
+    FILE* fichier;
+    char *ptr_i;
+
+    fichier=fopen(nomFichier,"rb");
+    if(fichier==NULL)
+    {
+        printf("ERREUR : le fichier n'a pas ete ouvert");
+        return -1;
+    }
+    else { printf("le fichier a ete ouvert\n"); }
+
+    ptr_i=malloc(taille);
+    fseek(fichier,0,SEEK_SET);
+    fread(ptr_i,taille,1,fichier);
+    EmissionBinaire(ptr_i,taille); //on envoie le fichier image sous format binaire
+
+
+    fclose(fichier);
+    return 1;
+}
+
 int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
 {
     char *ptr_i;
@@ -68,6 +92,7 @@ int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
     fwrite(ptr_i,tailleFichier,1,fichier);
 
     fclose(fichier);
+    return 1;
 }
 
 int Recherche(char *fichier, char *mot)
@@ -116,12 +141,11 @@ int CommandeS(char *requete)
 
     if(strncmp(requete,"upl",3)==0)
     {
-        Emission("vous avez choisi d'upload, entrez un fichier\n");
         return 1;
     }
-    else
+    if(strncmp(requete,"dld",3)==0)
     {
-    return 0;
+        return 2;
     }
 
 }
@@ -131,12 +155,10 @@ int authentificationS(char *requete)
 
     if(Recherche("utilisateurs.txt",requete)==1)
     {
-        Emission("YES\n");
         return 1;
     }
     else
     {
-        Emission("NO\n");
         return 0;
     }
 }

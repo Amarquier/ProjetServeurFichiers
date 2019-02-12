@@ -16,6 +16,8 @@ int main() {
     CMD=malloc(3);
     Fichier=malloc(16);
     requete=malloc(30);
+    taillestr=malloc(255);
+
 /*****************phase de connection au serveur****************/
 	if(Initialisation("localhost") != 1) {
 		printf("Erreur d'initialisation\n");
@@ -27,8 +29,9 @@ int main() {
 	EnvoiC(requete);
 
 	sscanf(requete,"%*s %s %s",CMD,Fichier);
-	printf("CMD : %s", CMD);
-	printf("fichier : %s", Fichier);
+	printf("CMD : %s\n", CMD);
+	printf("fichier : %s\n", Fichier);
+
 
 
 	if(strcmp("upl",CMD)==0)
@@ -37,12 +40,25 @@ int main() {
         printf("la taille du fichier est de %lu \n", taille);
         sprintf(taillestr,"%lu",taille);
         printf("taille str%s \n",taillestr);
-	}
-    strcat(taillestr,"\n");
-	Emission(taillestr);
 
-	Upload(Fichier,taille);
+        strcat(taillestr,"\n");
+        Emission(taillestr);
 
+        Upload(Fichier,taille);
+    }
+    if(strcmp("dld",CMD)==0)
+    {
+        taillestr = Reception();
+        printf("taillestr= %s \n",taillestr);
+        taille=strtoul(taillestr,taillestr,10);
+        printf("taille : %lu\n", taille);
+
+        /*il faut que le client connaisse la
+        taille du fichier a download*/
+
+        ReceptionDownload(Fichier,taille);
+
+    }
 	message = Reception();
 	if(message != NULL) {
 		printf("J'ai recu: %s\n", message);

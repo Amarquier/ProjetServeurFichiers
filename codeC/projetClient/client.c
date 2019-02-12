@@ -43,6 +43,26 @@ unsigned long longueur_fichier(char *nomFichier)
     return taille;
 }
 
+int ReceptionDownload(char *Fichier, unsigned long taille)
+{
+    char *ptr_i;
+    ptr_i=malloc(taille);
+    FILE* fichier;
+
+    fichier=fopen(Fichier,"wb");
+    if(fichier==NULL)
+    {
+        printf("ERREUR : le fichier n'a pas ete cree");
+        return -1;
+    }
+    else { printf("le fichier a ete cree\n"); }
+
+    ReceptionBinaire(ptr_i,taille);
+    fwrite(ptr_i,taille,1,fichier);
+
+    fclose(fichier);
+}
+
 
 
 int Upload(char *nomFichier, unsigned long taille)

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "serveur.h"
 
 int main() {
@@ -26,6 +27,7 @@ int main() {
                 ID=malloc(9);
                 CMD=malloc(3);
                 nomFichier=malloc(16);
+                taillestr=malloc(255);
                 /*on décompose la requete pour en extraire
                 tous les elemens dont nous avons besoin*/
 				Decomposition(message,ID,CMD,nomFichier);
@@ -43,6 +45,19 @@ int main() {
 
                         ReceptionUpload(nomFichier,taillefichier);
                     }
+                    if(CommandeS(CMD)==2)
+                    {
+                        taillefichier=longueur_fichier(nomFichier);
+                        sprintf(taillestr,"%lu",taillefichier);
+                        printf("taille str%s \n",taillestr);
+
+                        strcat(taillestr,"\n");
+                        Emission(taillestr);
+
+                        Download(nomFichier,taillefichier);
+
+                    }
+
 				}
 				//free(message);
 
