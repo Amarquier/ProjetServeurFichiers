@@ -45,13 +45,11 @@ unsigned long longueur_fichier(char *nomFichier)
 
 
 
-int Upload(char *nomFichier)
+int Upload(char *nomFichier, unsigned long taille)
 {
 
     FILE* fichier;
     char *ptr_i;
-    unsigned long taille=longueur_fichier(nomFichier);
-
 
     fichier=fopen(nomFichier,"rb");
     if(fichier==NULL)
@@ -88,7 +86,7 @@ int CommandeC(char *requete)
 void EnvoiC(char *requete)
 {
 /*on envoie l'identifiant et le mdp*/
-    fgets(requete,16,stdin);
+    fgets(requete,27,stdin);
 
     if(Emission(requete)!=1)
     {

@@ -1,7 +1,8 @@
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 
-int Upload(char *nomFichier);
+int Upload(char *nomFichier,unsigned long taille);
+void EnvoiC(char *requete);
 
 /* Initialisation.
  * Connexion au serveur sur la machine donnee.
