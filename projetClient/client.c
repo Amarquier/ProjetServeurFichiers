@@ -27,7 +27,7 @@ int socketClient;
 char tamponClient[LONGUEUR_TAMPON];
 int debutTampon;
 int finTampon;
-
+/*
 int Upload(char *nomFichier)
 {
 
@@ -35,7 +35,7 @@ int Upload(char *nomFichier)
     char *ptr_i;
     unsigned long taille=longueur_fichier(nomFichier);
 
-    /*on ouvre le fichier en lecture binaire*/
+
     fichier=fopen(nomFichier,"rb");
     if(fichier==NULL)
     {
@@ -52,7 +52,7 @@ int Upload(char *nomFichier)
 
     fclose(fichier);
 }
-
+*/
 int CommandeC(char *requete)
 {
 /*on envoie la commande*/
@@ -61,13 +61,16 @@ int CommandeC(char *requete)
     if(Emission(requete)!=1)
     {
         printf("erreur d'emission\n");
+        return 0;
     }
+    return 1;
 }
 
-void authentificationC(char *requete)
+
+void EnvoiC(char *requete)
 {
 /*on envoie l'identifiant et le mdp*/
-    fgets(requete,11,stdin);
+    fgets(requete,16,stdin);
 
     if(Emission(requete)!=1)
     {

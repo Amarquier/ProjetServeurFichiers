@@ -14,19 +14,9 @@ int main() {
 
 /*****************phase d'authentification au serveur****************/
 
-	printf("entrez login.mdp\n");
-	authentificationC(requete);
+	printf("entrez \n");
+	EnvoiC(requete);
 	free(requete);
-
-
-	message = Reception();
-	if(message != NULL) {
-		printf("J'ai recu: %s\n", message);
-		free(message);
-	} else {
-		printf("Erreur de réception\n");
-		return 1;
-	}
 
 	message = Reception();
 	if(message != NULL) {
@@ -40,11 +30,8 @@ int main() {
 
 
 /*****************phase de commande****************/
-	/*
-	requete=malloc(4);
-	printf("entrez votre commande\n");
-	CommandeC(requete);
-	free(requete);
+
+
 
 	message = Reception();
 	if(message != NULL) {
@@ -54,7 +41,7 @@ int main() {
 		printf("Erreur de réception\n");
 		return 1;
 	}
-	*/
+
 /*************************************************/
 		message = Reception();
 	if(message != NULL) {

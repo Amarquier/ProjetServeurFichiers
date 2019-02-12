@@ -4,6 +4,8 @@
 
 int main() {
 	char *message = NULL;
+	char *ID;
+	char *CMD;
 
 	Initialisation();
 
@@ -18,8 +20,12 @@ int main() {
 
 			if(message != NULL)
 			{
+                ID=malloc(9);
+                CMD=malloc(3);
+				Decomposition(message,ID,CMD);
 
-				authentificationS(message);
+				authentificationS(ID);
+				CommandeS(CMD);
 				//free(message);
 
 				//CommandeS(message);

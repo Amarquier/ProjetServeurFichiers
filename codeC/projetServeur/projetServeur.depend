@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1548405482 source:/home/projetc/Documents/codeC/projetServeur/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1549979744 source:/home/projetc/Documents/codeC/projetServeur/serveur.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	<sys/types.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<unistd.h>
+	<netdb.h>
+	<sys/socket.h>
+	<sys/select.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<errno.h>
+	"serveur.h"
+
+1549979889 /home/projetc/Documents/codeC/projetServeur/serveur.h
+
+1549979922 source:/home/projetc/Documents/codeC/projetServeur/mainServeur.c
+	<stdio.h>
+	<stdlib.h>
+	"serveur.h"
+

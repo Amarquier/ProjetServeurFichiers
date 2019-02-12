@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1549977327 source:/home/projetc/Documents/codeC/projetClient/client.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<ctype.h>
+	<netdb.h>
+	<string.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/select.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<errno.h>
+	"client.h"
+
+1547364890 /home/projetc/Documents/codeC/projetClient/client.h
+
+1549977615 source:/home/projetc/Documents/codeC/projetClient/mainClient.c
+	<stdio.h>
+	<stdlib.h>
+	"client.h"
+

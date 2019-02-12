@@ -67,13 +67,13 @@ int menu()
     fclose(fichier);
 }*/
 
-/* int Recherche(char *fichier, char *mot)
+int Recherche(char *fichier, char *mot)
 {
     FILE *f;
     int trouve = 0;
     char temp[512];
 
-    if((fopen_s(&f, fichier, "r")) != NULL)
+    if((f=fopen(fichier, "r")) == NULL)
     {
         return(-1);
     }
@@ -100,8 +100,12 @@ int menu()
     }
 
 }
-*/
 
+
+int Decomposition(char *requete, char *ID, char *CMD)
+{
+    sscanf(requete,"%s %s", ID, CMD);
+}
 
 int CommandeS(char *requete)
 {
@@ -117,42 +121,17 @@ return 1;
 
 int authentificationS(char *requete)
  {
-    char identifiants[9];
-    int auth=0;
-    FILE* f;
-   f=fopen("utilisateurs.txt","r");
-   if(f==NULL)
-   {
-        printf("fichier non ouvert\n");
-   }
-   else
-   {
-        printf("fichier ouvert\n");
-   }
 
-   while(fscanf(f,"%s",identifiants)==1)
-   {
-
-       printf("pour %s-> ",identifiants);
-        if(strncmp(identifiants,requete,9)==0)
-        {
-            Emission("acces autorise\n");
-            auth=1;
-            return 1;
-        }
-        fclose(f);
-   }
-    if(auth==0)
+    if(Recherche("utilisateurs.txt",requete)==1)
     {
-        Emission("dommage\n");
-        return 0;
+        Emission("YES\n");
+        return 1;
     }
     else
     {
-        Emission("vous etes connecté\n");
+        Emission("NO\n");
+        return 0;
     }
-
-return 1;
 }
 
 /* extraitFichier.
