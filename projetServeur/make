@@ -1,0 +1,1 @@
+gcc mainServeur.c serveur.c -o exe && ./exe
