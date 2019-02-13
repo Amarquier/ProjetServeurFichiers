@@ -7,6 +7,7 @@
  */
 int Initialisation();
 
+int ajoutUser(char *nom);
 int Decomposition(char *requete, char *ID, char *CMD, char *nomFichier);
 int Recherche(char *fichier, char *mot);
 int ReceptionUpload(char *nomFichier,unsigned long taille_fichier);

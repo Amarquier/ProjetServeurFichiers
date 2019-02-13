@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 
 #ifdef WIN32
 #include <winsock2.h>
@@ -48,6 +49,24 @@ int menu()
 {
     Emission("vous etes connecté en tant qu'utilsateur\nveuillez entrer une ligne de commande correspondant a une action\nupload\n");
     return 1;
+}
+
+int ajoutUser(char *nom)
+{
+    FILE* f;
+    f=fopen("utilisateurs.txt","a");
+
+    fputs(nom,f);
+    fputs("\n",f);
+    fclose(f);
+
+
+    printf("nom : %s\n", nom);
+    char path[]="/home/projetc/Documents/codeC/projetServeur/";
+    strcat(path,nom);
+    if(mkdir(path,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==0)
+    {printf("le dossier a ete cree");}else{printf("eh non");}
+    printf("path : %s\n", path);
 }
 
 int Download(char *nomFichier, unsigned long taille)
@@ -147,20 +166,32 @@ int CommandeS(char *requete)
     {
         return 2;
     }
+    if(strncmp(requete,"adu",3)==0)
+    {
+        return 3;
+    }
 
 }
 
 int authentificationS(char *requete)
  {
-
-    if(Recherche("utilisateurs.txt",requete)==1)
+    if(strncmp("acab.1312",requete,9)==0) //super utilisateur
     {
-        return 1;
+        return 2;
     }
+
     else
     {
-        return 0;
+        if(Recherche("utilisateurs.txt",requete)==1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
+
 }
 
 /* extraitFichier.

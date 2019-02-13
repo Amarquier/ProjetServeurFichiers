@@ -3,12 +3,13 @@
 	<stdio.h>
 	<stdlib.h>
 
-1550008691 source:/home/projetc/Documents/codeC/projetServeur/serveur.c
+1550023214 source:/home/projetc/Documents/codeC/projetServeur/serveur.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
 	<string.h>
 	<sys/types.h>
+	<sys/stat.h>
 	<winsock2.h>
 	<ws2tcpip.h>
 	<unistd.h>
@@ -20,9 +21,9 @@
 	<errno.h>
 	"serveur.h"
 
-1549982880 /home/projetc/Documents/codeC/projetServeur/serveur.h
+1550020997 /home/projetc/Documents/codeC/projetServeur/serveur.h
 
-1550008122 source:/home/projetc/Documents/codeC/projetServeur/mainServeur.c
+1550020849 source:/home/projetc/Documents/codeC/projetServeur/mainServeur.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

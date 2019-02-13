@@ -10,6 +10,7 @@ int main() {
 	char *nomFichier;
 	unsigned long taillefichier;
 	char *taillestr;
+	int authmode;
 
 	Initialisation();
 
@@ -28,18 +29,29 @@ int main() {
                 CMD=malloc(3);
                 nomFichier=malloc(16);
                 taillestr=malloc(255);
+
                 /*on décompose la requete pour en extraire
                 tous les elemens dont nous avons besoin*/
 				Decomposition(message,ID,CMD,nomFichier);
 
-				if(authentificationS(ID)==1)
+                authmode=authentificationS(ID);
+                printf("authmode = %d\n", authmode);
+
+                if(authmode==2)
+                {
+                    printf("superuser connecte");
+                    if(CommandeS(CMD)==3)
+                    {
+                        ajoutUser(nomFichier);
+                    }
+				}
+
+				if(authmode==1)
 				{
                     if(CommandeS(CMD)==1)
                     {
                         taillestr = Reception();
                         taillefichier=strtoul(taillestr,taillestr,10);
-
-
                         /*il faut que le serveur connaisse la
                         taille du fichier a upload*/
 
@@ -50,15 +62,14 @@ int main() {
                         taillefichier=longueur_fichier(nomFichier);
                         sprintf(taillestr,"%lu",taillefichier);
                         printf("taille str%s \n",taillestr);
-
                         strcat(taillestr,"\n");
                         Emission(taillestr);
-
                         Download(nomFichier,taillefichier);
 
                     }
 
 				}
+
 				//free(message);
 
 				//CommandeS(message);
