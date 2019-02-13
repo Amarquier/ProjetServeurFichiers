@@ -106,7 +106,7 @@ int CommandeC(char *requete)
 void EnvoiC(char *requete)
 {
 /*on envoie l'identifiant et le mdp*/
-    fgets(requete,27,stdin);
+    fgets(requete,31,stdin);
 
     if(Emission(requete)!=1)
     {

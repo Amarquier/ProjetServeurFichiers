@@ -45,36 +45,113 @@ char tamponClient[LONGUEUR_TAMPON];
 int debutTampon;
 int finTampon;
 
-int menu()
+int quota(char *ID, unsigned long tailleFichier)
 {
-    Emission("vous etes connecté en tant qu'utilsateur\nveuillez entrer une ligne de commande correspondant a une action\nupload\n");
+    FILE* f;
+    unsigned long tailletotale;
+    unsigned long total;
+    char totalChar[100];
+    char fichier[13];
+    /*on copie le contenu de ID dans la variable fichier*/
+    strcpy(fichier,ID);
+
+    /*on concatène le nom de l'user et .txt pour acceder au
+    fichier contenant son quota*/
+    printf("avant : %s\n",fichier);
+    strcat(fichier,".txt");
+    printf("apres : %s\n",fichier);
+
+    /*on ouvre le fichier en lecture*/
+    f=fopen(fichier, "r");
+    /*on en extrait la taille a utiliser
+    pour le quota*/
+    fscanf(f,"%lu",&tailletotale);
+    printf("tailletotale : %lu \n", tailletotale);
+    printf("taille_fichier : %lu \n", tailleFichier);
+    /*on calcule la taille totale apres l'upload du
+    fichier*/
+    total=tailletotale+tailleFichier;
+    fclose(f);
+
+    /*on ferme le fichier puis on le reouvre
+    en ecriture cette fois*/
+    f=fopen(fichier, "w");
+    printf("total : %lu \n", total);
+
+    /*si le total dépasse le quota qui est de 100000
+    octets par utilisateur*/
+    if(total>100000)
+    {
+        /*on indique que le quota est dépassé*/
+        printf("quota depasse\n");
+        return 0;
+    }
+
+    else
+    {
+        /*on indique que le quota n'est pas atteint*/
+        printf("quota non atteint\n");
+        /*on écrit le nouveau total d'espace utilisé*/
+        sprintf(totalChar,"%lu",total);
+        printf(" totalchar : %s \n",totalChar);
+        fprintf(f,"%s",totalChar);
+        return 1;
+    }
+    /*et dans les deux cas on ferme le fichier a la fin*/
+    fclose(f);
+}
+int Renommer (char* fichier, char* nom)
+{
+    rename(fichier, nom);// fonction de renommage
+    return 1;
+}
+int Supprimer (char* nomFichier)
+{
+    remove(nomFichier);//fonction de suppression
     return 1;
 }
 
 int ajoutUser(char *nom)
 {
     FILE* f;
+    /*on ouvre le fichier contenant les
+    utilisateurs pour l'y inscrire*/
     f=fopen("utilisateurs.txt","a");
 
     fputs(nom,f);
-    fputs("\n",f);
+    fputs("\n",f);//saut de ligne
     fclose(f);
 
 
+    /*on crée un dossier appartenant a l'utilisateur*/
     printf("nom : %s\n", nom);
-    char path[]="/home/projetc/Documents/codeC/projetServeur/";
+    char path[]="/home/projetc/Documents/codeC/projetServeur/";//chemin du dossier desiré
     strcat(path,nom);
+
+    /*on crée un dossier avec tous les droits pour le propriétaire et le groupe,
+    et des droits read/search pour les autres*/
     if(mkdir(path,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)==0)
     {printf("le dossier a ete cree");}else{printf("eh non");}
     printf("path : %s\n", path);
+
+    /*on crée un fichier avec le nom de l'utilisateur, il contiendra
+    le total d'espace utilisé par celui ci, afin de calculer le quota
+    plus tard*/
+    strcat(nom,".txt");
+    f=fopen(nom,"w");
+    fprintf(f,"0");
+    fclose(f);
+    return 1;
+
 }
 
 int Download(char *nomFichier, unsigned long taille)
 {
 
     FILE* fichier;
-    char *ptr_i;
+    char *ptr_i;//contiendra les données a envoyer
 
+    /*on ouvre le fichier en lecture binaire*/
     fichier=fopen(nomFichier,"rb");
     if(fichier==NULL)
     {
@@ -83,7 +160,7 @@ int Download(char *nomFichier, unsigned long taille)
     }
     else { printf("le fichier a ete ouvert\n"); }
 
-    ptr_i=malloc(taille);
+    ptr_i=malloc(taille); //on lui donne assez de mémoire pour contenir la data
     fseek(fichier,0,SEEK_SET);
     fread(ptr_i,taille,1,fichier);
     EmissionBinaire(ptr_i,taille); //on envoie le fichier image sous format binaire
@@ -95,10 +172,11 @@ int Download(char *nomFichier, unsigned long taille)
 
 int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
 {
-    char *ptr_i;
-    ptr_i=malloc(tailleFichier);
+    char *ptr_i; //contiendra les données a recevoir
+    ptr_i=malloc(tailleFichier); //on lui donne assez de mémoire pour contenir la data
     FILE* fichier;
 
+    /*on ouvre le fichier en ecriture binaire*/
     fichier=fopen(nomFichier,"wb");
     if(fichier==NULL)
     {
@@ -107,7 +185,9 @@ int ReceptionUpload(char *nomFichier, unsigned long tailleFichier)
     }
     else { printf("le fichier a ete cree\n"); }
 
+    /*on recoit les données*/
     ReceptionBinaire(ptr_i,tailleFichier);
+    /*on écrit les données dans le fichier*/
     fwrite(ptr_i,tailleFichier,1,fichier);
 
     fclose(fichier);
@@ -120,21 +200,26 @@ int Recherche(char *fichier, char *mot)
     int trouve = 0;
     char temp[512];
 
+    /*on ouvre le fichier en lecture*/
     if((f=fopen(fichier, "r")) == NULL)
     {
         return(-1);
     }
 
+    /*on recherche le mot a l'interieur du fichier*/
     while(fgets(temp, 512, f) != NULL)
     {
         if((strstr(temp, mot)) != NULL)
         {
+            /*si on trouve le mot, on incrémente la variable trouve*/
             printf("trouve! \n");
             trouve++;
             return(1);
         }
     }
 
+    /*si la variable trouve est a 0,
+    c'est que le mot n'a pas été incrémenté*/
     if(trouve == 0)
     {
         printf("\nintrouvable\n");
@@ -151,12 +236,15 @@ int Recherche(char *fichier, char *mot)
 
 int Decomposition(char *requete, char *ID, char *CMD,char *nomFichier)
 {
+    /*on décompose la requete en plusieurs parties*/
     sscanf(requete,"%s %s %s", ID, CMD, nomFichier);
+    return 1;
 }
 
 int CommandeS(char *requete)
 {
-
+    /*selon la commande saisie par l'utilisateur,
+    la valeur retournée ne sera pas la meme*/
 
     if(strncmp(requete,"upl",3)==0)
     {
@@ -170,18 +258,28 @@ int CommandeS(char *requete)
     {
         return 3;
     }
+    if(strncmp(requete,"rnm",3)==0)
+    {
+        return 4;
+    }
+    if(strncmp(requete,"del",3)==0)
+    {
+        return 5;
+    }
 
 }
 
 int authentificationS(char *requete)
  {
-    if(strncmp("acab.1312",requete,9)==0) //super utilisateur
+    if(strncmp("acab.9999",requete,9)==0) //super utilisateur
     {
         return 2;
     }
 
     else
     {
+        /*on va chercher dans le fichier utilisateurs si
+        l'ID.mdp correspond a une entrée*/
         if(Recherche("utilisateurs.txt",requete)==1)
         {
             return 1;
@@ -194,21 +292,6 @@ int authentificationS(char *requete)
 
 }
 
-/* extraitFichier.
- * extraction du nom du fichier demandé d'une requete HTTP
- * le nom sera copié dans le tableau tableauNomFichier
- */
- int extraitFichier(char *requete, char *tableauNomFichier, int tailleTableauNomFichier)
-{
-    char commande[6];
-   sscanf(requete,"%s /%[^ ]",commande, tableauNomFichier);
-    /*la fonction sscanf permet la lecture de texte suivant un certain format a partir d'un pointeur*/
-
-    tailleTableauNomFichier=strlen(tableauNomFichier)+1;
-
-
-    return tailleTableauNomFichier; //on retourne le nombre de caractères
-}
 
 unsigned long longueur_fichier(char *nomFichier)
 {

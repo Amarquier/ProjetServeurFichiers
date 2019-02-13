@@ -7,13 +7,67 @@
  */
 int Initialisation();
 
+
+/**********************************************************************************/
+
+/* Nom : Renommer
+ * Role : Renomme un fichier
+ * Renvoie : 1 si la commande s'est bien déroulée
+ */
+int Renommer (char* fichier, char* nom);
+
+/* Nom : quota
+ * Role : evalue le quota et l'augmente
+ * Renvoie : 0 si le quota est dépassé, 1 sinon
+ */
+int quota(char *ID, unsigned long tailleFichier);
+
+/* Nom : ajoutUser
+ * Role : ajoute un utilisateur dans utilisateurs.txt
+ * Renvoie : 1 si la commande s'est bien déroulée
+ */
 int ajoutUser(char *nom);
-int Decomposition(char *requete, char *ID, char *CMD, char *nomFichier);
+
+/* Nom : Decomposition
+ * Role : décompose une requete pour en extraire l'ID.mdp, la commande, et l'élément auxiliaire
+ * Renvoie : 1 si la commande s'est bien déroulée
+ */
+int Decomposition(char *requete, char *ID, char *CMD, char *EA);
+
+/* Nom : Recherche
+ * Role : cherche un certain mot dans un certain fichier au choix
+ * Renvoie : -1 s'il ya un probleme a l'ouverture du fichier
+ *           0 si le mot n'a pas été trouvé
+ *           1 si le mot a été trouvé
+ */
 int Recherche(char *fichier, char *mot);
+
+/* Nom : ReceptionUpload
+ * Role : recoit les fichiers uploadés par l'utilisateur
+ * Renvoie : -1 s'il ya un probleme a l'ouverture du fichier
+ *            1 si la commande s'est bien déroulée
+ */
 int ReceptionUpload(char *nomFichier,unsigned long taille_fichier);
+
+/* Nom : CommandeS
+ * Role : permet d'appeler d'autres commandes selon le choix de l'utilisateur
+ * Renvoie : 1 si upload
+ *           2 si download
+ *           3 si ajout d'utilisateur
+ *           4 si renommage
+ *           5 si suppression
+ */
 int CommandeS(char *requete);
+
+/* Nom : authentificationS
+ * Role : permet a un utilisateur de s'authentifier
+ * Renvoie : 1 si connecté en user normal
+ *           2 si connecté en superuser
+ *           0 si ID.mdp erroné
+ */
 int authentificationS(char *requete);
 
+/**********************************************************************************/
 
 /* Initialisation.
  * Creation du serveur en prŽcisant le service ou numŽro de port.
